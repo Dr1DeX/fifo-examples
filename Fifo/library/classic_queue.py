@@ -1,7 +1,7 @@
 import sys
 
 from Fifo.library.BaseQueue import BaseQueue
-from Fifo.utils.exceptions import EmptyArrException, FullArrException
+from Fifo.utils.exceptions import EmptyArrException
 
 
 class ClassicQueue(BaseQueue):
@@ -26,16 +26,17 @@ class ClassicQueue(BaseQueue):
             self.queue[self.tail] = x
             self.tail = (self.tail + 1) % self.max_size
             self.size += 1
-        else:
-            raise FullArrException
 
     def pop(self):
-        if self.is_empty():
-            raise EmptyArrException
-        x = self.queue[self.head]
-        self.queue[self.head] = None
-        self.head = (self.head + 1) % self.max_size
-        return x
+        try:
+            if self.is_empty():
+                raise EmptyArrException
+            x = self.queue[self.head]
+            self.queue[self.head] = None
+            self.head = (self.head + 1) % self.max_size
+            return x
+        except EmptyArrException:
+            print('error: empty queue')
 
     def __interface_commander(self):
         for _ in range(self.max_size):
@@ -47,13 +48,10 @@ class ClassicQueue(BaseQueue):
                 if cmd == 'push':
                     self.push(val)
             elif cmd == 'pop':
-                try:
-                    res = self.pop()
-                    if res is not None:
-                        print(res)
-                    else:
-                        print('error: empty queue')
-                except EmptyArrException:
+                res = self.pop()
+                if res is not None:
+                    print(res)
+                else:
                     print('error: empty queue')
             else:
                 print(f'Команда "{cmd}" не распознана')

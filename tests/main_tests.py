@@ -14,6 +14,16 @@ class TestClassicQueue(unittest.TestCase):
                 queue_instance.push(params)
                 self.assertEqual(queue_instance.pop(), expected)
 
+    def test_empty_buffer(self):
+        corner_case = [
+            (1, None)
+        ]
+
+        for n, expected in corner_case:
+            with self.subTest(n=n, expected=expected):
+                queue_instance = ClassicQueue(n)
+                self.assertEqual(queue_instance.pop(), expected)
+
 
 if __name__ == '__main__':
     unittest.main()
