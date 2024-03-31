@@ -1,14 +1,14 @@
-import sys
 from Fifo.library.classic_queue import ClassicQueue
 
 
-def main():
+def runner_classic_queue():
     try:
         n = int(input('Размер очереди: '))
         queue = ClassicQueue(n)
-    except TypeError:
+        queue.runner()
+    except ValueError:
         print('Что то пошло не так...')
 
 
 if __name__ == '__main__':
-    main()
+    runner_classic_queue()

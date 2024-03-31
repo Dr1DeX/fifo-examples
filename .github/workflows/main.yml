@@ -20,7 +20,7 @@ jobs:
         pip install flake8
     - name: Run main test with flake8
       run: |
-        python -m flake8 Fifo
+        python -m flake8 .
     - name: Run main test with unittest to Fifo
       run: |
         python -m unittest tests/main_tests.py

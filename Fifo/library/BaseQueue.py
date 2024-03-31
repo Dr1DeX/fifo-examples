@@ -2,7 +2,7 @@ import abc
 
 
 class BaseQueue(abc.ABC):
-    
+
     @abc.abstractmethod
     def is_empty(self):
         pass
@@ -14,4 +14,3 @@ class BaseQueue(abc.ABC):
     @abc.abstractmethod
     def pop(self):
         pass
-

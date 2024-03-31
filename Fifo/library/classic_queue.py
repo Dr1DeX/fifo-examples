@@ -1,7 +1,7 @@
 import sys
 
 from Fifo.library.BaseQueue import BaseQueue
-from Fifo.utils.exceptions import FullArrException, EmptyArrException
+from Fifo.utils.exceptions import EmptyArrException, FullArrException
 
 
 class ClassicQueue(BaseQueue):
@@ -26,36 +26,37 @@ class ClassicQueue(BaseQueue):
             self.queue[self.tail] = x
             self.tail = (self.tail + 1) % self.max_size
             self.size += 1
+        else:
+            raise FullArrException
 
     def pop(self):
         if self.is_empty():
-            return False
+            raise EmptyArrException
         x = self.queue[self.head]
+        self.queue[self.head] = None
         self.head = (self.head + 1) % self.max_size
         return x
 
     def __interface_commander(self):
         for _ in range(self.max_size):
-            print('Введите команду и число: ')
-            try:
-                line = sys.stdin.readline().rstrip().split(' ')
-                cmd = line[0]
-                if len(line) > 1:
-                    val = int(line[-1])
-                    if cmd == 'push':
-                        try:
-                            self.push(val)
-                        except FullArrException:
-                            print('error: full queue')
-                elif cmd == 'pop':
-                    try:
-                        print(self.pop())
-                    except EmptyArrException:
+            print('Введите команду: ')
+            line = sys.stdin.readline().rstrip().split(' ')
+            cmd = line[0]
+            if len(line) > 1:
+                val = int(line[-1])
+                if cmd == 'push':
+                    self.push(val)
+            elif cmd == 'pop':
+                try:
+                    res = self.pop()
+                    if res is not None:
+                        print(res)
+                    else:
                         print('error: empty queue')
-                else:
-                    print(f'Команда "{cmd}" не распознана')
-            except Exception as e:
-                print(e)
+                except EmptyArrException:
+                    print('error: empty queue')
+            else:
+                print(f'Команда "{cmd}" не распознана')
 
     def runner(self):
         return self.__interface_commander()
