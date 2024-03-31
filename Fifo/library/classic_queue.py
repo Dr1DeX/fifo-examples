@@ -38,7 +38,7 @@ class ClassicQueue(BaseQueue):
         except EmptyArrException:
             print('error: empty queue')
 
-    def __interface_commander(self):
+    def __parser_commander(self):
         for _ in range(self.max_size):
             print('Введите команду: ')
             line = sys.stdin.readline().rstrip().split(' ')
@@ -57,4 +57,4 @@ class ClassicQueue(BaseQueue):
                 print(f'Команда "{cmd}" не распознана')
 
     def runner(self):
-        return self.__interface_commander()
+        return self.__parser_commander()

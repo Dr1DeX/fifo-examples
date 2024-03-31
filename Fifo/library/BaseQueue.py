@@ -14,3 +14,7 @@ class BaseQueue(abc.ABC):
     @abc.abstractmethod
     def pop(self):
         pass
+
+    @abc.abstractmethod
+    def runner(self):
+        pass
