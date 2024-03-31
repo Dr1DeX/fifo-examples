@@ -1,12 +1,14 @@
 import sys
 
 from Fifo.library.BaseQueue import BaseQueue
-from Fifo.utils.exceptions import FullArrException, EmptyArrException, UnknownCommand
+from Fifo.utils.exceptions import (FullArrException,
+                                   EmptyArrException,
+                                   UnknownCommand)
 
 
 class Deque(BaseQueue):
     queue: list[int]  # type hint
-    max_size: list[int]
+    max_size: int
     front_q: int
     back_q: int
 
